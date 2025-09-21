@@ -4,7 +4,7 @@ class TranslationService {
   // Map frontend language codes to backend language codes
   mapLanguageCode(frontendLang) {
     const mapping = {
-      'tl': 'fil',  // Frontend uses 'tl' for Filipino, backend uses 'fil'
+      'tl': 'fil',
       'en': 'en',
       'ceb': 'ceb',
       'ilo': 'ilo',
