@@ -85,18 +85,11 @@ TRANSLATORS = {}
 
 def preload_models():
     print("Preloading translation models...")
-    # Preload all models in MODEL_MAP
-    for (src, tgt), model_name in MODEL_MAP.items():
-        if (src, tgt) not in TRANSLATORS:
-            print(f"Preloading model for {src} -> {tgt}: {model_name}")
-            TRANSLATORS[(src, tgt)] = pipeline("translation", model=model_name, framework="pt")
-    # Preload Filipino alternatives if needed
-    for alt_name, model_name in FILIPINO_ALTERNATIVES.items():
-        if ("en", "fil") not in TRANSLATORS:
-            TRANSLATORS[("en", "fil")] = pipeline("translation", model=model_name, framework="pt")
-        if ("fil", "en") not in TRANSLATORS:
-            TRANSLATORS[("fil", "en")] = pipeline("translation", model=model_name, framework="pt")
-    print("All models preloaded.")
+    from transformers import pipeline
+    # Only preload en <-> fil models
+    TRANSLATORS[("en", "fil")] = pipeline("translation", model="facebook/nllb-200-distilled-600M", framework="pt")
+    TRANSLATORS[("fil", "en")] = pipeline("translation", model="facebook/nllb-200-distilled-600M", framework="pt")
+    print("en <-> fil models preloaded.")
 
 preload_models()
 
