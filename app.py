@@ -27,6 +27,10 @@ cors_origins = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost",
+    "http://localhost:5500",  # Local testing with Live Server
+    "http://127.0.0.1:5500",  # Local testing alternative
+    "http://localhost:8000",  # API itself
+    "http://127.0.0.1:8000",  # API alternative
     "http://frontend:80",  # Docker container hostname
     "http://72.60.194.243:3000"
 ]
@@ -160,13 +164,18 @@ def run_translation(text: str, src_lang: str, tgt_lang: str):
 class MessageRequest(BaseModel):
     text: str
     target_lang: str = "en"  # Default target language for immediate translation
+    source_lang: str = None  # Optional source language (auto-detect if not provided)
 
 
 @app.post("/send")
 def send_message(req: MessageRequest):
     try:
-        # Detect language quickly
-        src_lang = detect(req.text).lower()
+        # Use provided source language, or detect it
+        if req.source_lang:
+            src_lang = req.source_lang.lower()
+        else:
+            src_lang = detect(req.text).lower()
+        
         if src_lang == "tl": 
             src_lang = "fil"
 
