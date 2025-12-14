@@ -1,9 +1,9 @@
 export const API_CONFIG = {
-  BASE_URL: "http://72.60.194.243:8000", // <- deployed backend
+  BASE_URL: "http://localhost:8000", // Use localhost for both local dev and Docker (since backend is port mapped)
   ENDPOINTS: {
     TRANSLATE: "/translate/",
     LANGUAGES: "/languages",
-    MESSAGES: '/messages',  
+    MESSAGES: '/messages',
   }
 };
 

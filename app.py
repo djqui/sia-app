@@ -26,8 +26,9 @@ collection = db["gabaylakbay"]      # collection
 cors_origins = [
     "http://localhost:3000",
     "http://localhost:5173",
+    "http://localhost",
+    "http://frontend:80",  # Docker container hostname
     "http://72.60.194.243:3000"
-
 ]
 
 app.add_middleware(
